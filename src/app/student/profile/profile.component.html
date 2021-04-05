@@ -1,0 +1,177 @@
+<div class="container rounded bg-white mt-5">
+  <div class="row">
+    <div class="col-md-4 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+        <img
+          class="rounded-circle mt-5"
+          src="https://i.imgur.com/0eg0aG0.jpg"
+          width="90"
+        /><span class="font-weight-bold">John Doe</span
+        ><span class="text-black-50">john_doe12@bbb.com</span
+        ><span>United States</span>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex flex-row align-items-center back">
+            <i class="fa fa-long-arrow-left mr-1 mb-1"></i>
+            <h5 class="text-left">
+              <input
+                type="button"
+                (click)="backToHome()"
+                value="Back to home"
+                style="background-color: transparent; border: none"
+              />
+            </h5>
+          </div>
+          <h5 class="text-right">
+            <input
+              type="button"
+              (click)="editProfile()"
+              value="{{ value }}"
+              style="background-color: transparent; border: none"
+            />
+          </h5>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <input
+              [ngStyle]="{ display: edit1 ? 'none' : '' }"
+              type="text"
+              disabled
+              class="form-control"
+              placeholder="first name"
+              value="Akhil Dharavath"
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              [ngStyle]="{ display: edit1 ? 'none' : '' }"
+              type="text"
+              disabled
+              class="form-control"
+              value="17071A0578"
+              placeholder="Student Id"
+            />
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <input
+              [ngStyle]="{ display: edit1 ? 'none' : '' }"
+              type="text"
+              disabled
+              class="form-control"
+              placeholder="Father mobile no"
+              value="9870700641"
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              [ngStyle]="{ display: edit1 ? 'none' : '' }"
+              type="text"
+              disabled
+              class="form-control"
+              value="9515574463"
+              placeholder="Phone number"
+            />
+          </div>
+        </div>
+
+        <form
+          class="form"
+          method="POST"
+          role="form"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <input
+                type="text"
+                [attr.disabled]="edit2 ? 'disabled' : null"
+                class="form-control"
+                placeholder="Email"
+                value="akhilcruise35@gmail.com"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('email').touched && form.get('email').invalid
+                }"
+              />
+            </div>
+            <div class="invalid-feedback"></div>
+
+            <div class="col-md-6">
+              <select
+                [attr.disabled]="edit2 ? 'disabled' : null"
+                value="CSE"
+                class="form-control"
+                formControlName="branch"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('branch').touched && form.get('branch').invalid
+                }"
+                class="form-control"
+                id="sel1"
+              >
+                <option>CSE</option>
+                <option>ECE</option>
+                <option>CE</option>
+                <option>EEE</option>
+              </select>
+            </div>
+
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <input
+                type="text"
+                [attr.disabled]="edit2 ? 'disabled' : null"
+                class="form-control"
+                placeholder="Address"
+                value="25-12-425, karimnagar"
+                formControlName="address"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('address').touched && form.get('address').invalid
+                }"
+              />
+            </div>
+            <div class="invalid-feedback"></div>
+
+            <div class="col-md-6">
+              <input
+                type="text"
+                [attr.disabled]="edit2 ? 'disabled' : null"
+                class="form-control"
+                value="Telangana"
+                placeholder="state"
+                formControlName="state"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('state').touched && form.get('state').invalid
+                }"
+              />
+            </div>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div
+            class="mt-5 text-right"
+            [ngStyle]="{ display: edit2 ? 'none' : '' }"
+          >
+            <button
+              class="btn btn-primary profile-button"
+              [disabled]="form.invalid"
+              type="submit"
+            >
+              Save Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
