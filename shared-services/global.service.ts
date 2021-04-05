@@ -66,4 +66,9 @@ export class GlobalService {
 
     return this.http.patch<{ message: string }>(api, resetPasswordObject);
   }
+
+  changePassword(idObject) {
+    let api = this.apiBaseUrl + `auth/changepassword`;
+    return this.http.post<{ message: string }>(api, idObject);
+  }
 }

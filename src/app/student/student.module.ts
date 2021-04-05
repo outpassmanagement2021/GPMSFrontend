@@ -43,6 +43,7 @@ import { MessageModule } from "primeng/message";
 import { MessagesModule } from "primeng/messages";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
+import { PasswordchangeComponent } from "./passwordchange/passwordchange.component";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ToastModule } from "primeng/toast";
     ProfileComponent,
     RequestoutpassComponent,
     ViewoutpassesComponent,
+    PasswordchangeComponent,
   ],
   imports: [
     CommonModule,

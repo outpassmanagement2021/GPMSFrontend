@@ -2,10 +2,10 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 //own components
-import { ResetpasswordComponent } from "./shared components/resetpassword/resetpassword.component";
-import { ForgotpasswordComponent } from "./shared components/forgotpassword/forgotpassword.component";
-import { LoginComponent } from "./shared components/login/login.component";
-import { ScannerComponent } from "./shared components/scanner/scanner.component";
+import { ResetpasswordComponent } from "./shared_components/resetpassword/resetpassword.component";
+import { ForgotpasswordComponent } from "./shared_components/forgotpassword/forgotpassword.component";
+import { LoginComponent } from "./shared_components/login/login.component";
+import { ScannerComponent } from "./shared_components/scanner/scanner.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "v1/login", pathMatch: "full" },

@@ -13,10 +13,11 @@ import { QRCodeModule } from "angularx-qrcode";
 import { NgQrScannerModule } from "angular2-qrscanner";
 
 // our components
-import { LoginComponent } from "./shared components/login/login.component";
+import { LoginComponent } from "./shared_components/login/login.component";
 import { AppComponent } from "./app.component";
-import { ScannerComponent } from "./shared components/scanner/scanner.component";
-import { ForgotpasswordComponent } from "./shared components/forgotpassword/forgotpassword.component";
+import { ScannerComponent } from "./shared_components/scanner/scanner.component";
+import { ForgotpasswordComponent } from "./shared_components/forgotpassword/forgotpassword.component";
+import { ResetpasswordComponent } from "./shared_components/resetpassword/resetpassword.component";
 
 // primeng
 import { DropdownModule } from "primeng/dropdown";
@@ -55,7 +56,6 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { ResetpasswordComponent } from "./shared components/resetpassword/resetpassword.component";
 
 @NgModule({
   declarations: [

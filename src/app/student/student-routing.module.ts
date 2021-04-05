@@ -5,6 +5,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { HomeComponent } from "./home/home.component";
+import { PasswordchangeComponent } from "./passwordchange/passwordchange.component";
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: "", redirectTo: "home", pathMatch: "full" },
       { path: "home", component: HomeComponent },
       { path: "requestoutpass", component: RequestoutpassComponent },
+      { path: "changepassword", component: PasswordchangeComponent },
       { path: "viewoutpass", component: ViewoutpassesComponent },
       { path: "profile", component: ProfileComponent },
       // {path :'mentordetails' , component: MentordetailsComponent}
