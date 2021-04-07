@@ -44,6 +44,8 @@ import { MessagesModule } from "primeng/messages";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
 import { PasswordchangeComponent } from "./passwordchange/passwordchange.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "interceptors/auth-interceptor";
 
 @NgModule({
   declarations: [
@@ -92,6 +94,9 @@ import { PasswordchangeComponent } from "./passwordchange/passwordchange.compone
     MatListModule,
     MatMenuModule,
     MatSlideToggleModule,
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
 })
 export class StudentModule {}

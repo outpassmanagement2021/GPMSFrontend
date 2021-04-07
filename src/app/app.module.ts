@@ -56,6 +56,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { AuthInterceptor } from "interceptors/auth-interceptor";
 
 @NgModule({
   declarations: [
@@ -115,7 +116,9 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     // own modules
     StudentModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

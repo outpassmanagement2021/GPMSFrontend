@@ -11,12 +11,12 @@ import { Injectable } from "@angular/core";
 export class AuthInterceptor implements HttpInterceptor {
   constructor() {} //to get token
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    // const ownerToken = this.ownerService.getToken();
+    const gpmstoken = localStorage.getItem("GPMSTOKEN");
 
-    // const authReq = req.clone({
-    //   headers: req.headers.set("Authorization", "Bearer " + ownerToken),
-    // });
+    const authReq = req.clone({
+      headers: req.headers.set("Authorization", "Bearer " + gpmstoken),
+    });
 
-    return next.handle(req);
+    return next.handle(authReq);
   }
 }

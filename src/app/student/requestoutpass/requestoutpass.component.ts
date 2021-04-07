@@ -1,15 +1,22 @@
+import { StudentOutpassService } from "../../../../shared-services/studentoutpass.service";
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 //import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-requestoutpass",
   templateUrl: "./requestoutpass.component.html",
   styleUrls: ["./requestoutpass.component.scss"],
+  providers: [MessageService],
 })
 export class RequestoutpassComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private outpassservice: StudentOutpassService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -79,10 +86,8 @@ export class RequestoutpassComponent implements OnInit {
   ];
 
   //onSubmit request form
-  onSubmit() {
+  async onSubmit() {
     if (this.form.valid) {
-      console.log("form submited", this.form.value["oDate"]);
-
       let formData = new FormData();
       formData.append("outgoingDate", this.form.value["oDate"]);
       formData.append("outgoingTime", this.form.value["oTime"]);
@@ -91,17 +96,33 @@ export class RequestoutpassComponent implements OnInit {
       formData.append("description", this.form.value["message"]);
       if (this.selectedFile) formData.append("requestfile", this.selectedFile);
 
-      console.log(formData.get("requestfile"));
       this.selectedFile = undefined;
 
-      this.http
-        .post("http://localhost:8000/api/v1/outpass/studentoutpass", formData)
-        .subscribe((res) => {
-          console.log(res);
-        });
+      try {
+        let result = await this.outpassservice
+          .createNewStudentOutPass(formData)
+          .toPromise();
 
-      //this.form.reset();
-      this.alert = true;
+        //this.form.reset();
+        this.alert = true;
+
+        this.messageService.add({
+          key: "toastElement",
+          severity: "success",
+          summary: "Success",
+          detail: result.message,
+          sticky: false,
+        });
+      } catch (error) {
+        console.log(error);
+        this.messageService.add({
+          key: "toastElement",
+          severity: "error",
+          summary: "ERROR",
+          detail: error.error.message,
+          sticky: true,
+        });
+      }
     }
   }
 
@@ -112,7 +133,6 @@ export class RequestoutpassComponent implements OnInit {
 
   //file upload
   myUploader(obj) {
-    console.log(obj.files[0]);
     this.selectedFile = obj.files[0];
   }
 }
