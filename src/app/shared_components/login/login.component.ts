@@ -32,10 +32,6 @@ export class LoginComponent implements OnInit {
         sticky: false,
       });
 
-      // 3. Appropriate routing
-      this.router.navigateByUrl("v1/student/dashboard");
-
-      console.log("after login");
       this.isLoading = false;
       // tslint:disable-next-line: max-line-length
     } catch (error) {
@@ -50,6 +46,7 @@ export class LoginComponent implements OnInit {
       });
 
       //routing
+      this.router.navigateByUrl("v1/login");
     }
   }
 }

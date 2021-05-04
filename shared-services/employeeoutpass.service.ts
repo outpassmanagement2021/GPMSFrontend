@@ -6,9 +6,9 @@ import { Router } from "@angular/router";
 import { NotificationService } from "./notification.service";
 
 @Injectable({ providedIn: "root" })
-export class StudentOutpassService {
+export class EmployeeOutpassService {
   private apiBaseUrl: string =
-    environment.apiBaseUrl + "outpass/studentoutpass/";
+    environment.apiBaseUrl + "outpass/employeeoutpass/";
 
   constructor(
     private http: HttpClient,
@@ -16,16 +16,14 @@ export class StudentOutpassService {
     private router: Router
   ) {}
 
-  createNewStudentOutPass(outpassObject) {
+  createNewEmployeeOutPass(outpassObject) {
     let api = this.apiBaseUrl;
     return this.http.post<{ message: string }>(api, outpassObject);
   }
 
-  authenticateStudentOutpassBySecurity(reqId) {
-    console.log("in authenticat service");
-    console.log(reqId);
-    return this.http.patch<{ message: string; studentObj: any }>(
-      environment.apiBaseUrl + "outpass/updatestudentoutpass/" + `${reqId}`,
+  authenticateEmployeeOutpassBySecurity(reqId) {
+    return this.http.patch<{ message: string; employeeObj: any }>(
+      environment.apiBaseUrl + "outpass/updateemployeeoutpass/" + `${reqId}`,
       {}
     );
   }

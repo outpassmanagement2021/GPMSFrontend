@@ -1,5 +1,6 @@
 // own modules
 import { StudentModule } from "./student/student.module";
+import { SecurityModule } from "./security/security.module";
 
 // angular
 import { BrowserModule } from "@angular/platform-browser";
@@ -57,6 +58,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { AuthInterceptor } from "interceptors/auth-interceptor";
+import { ZXingScannerModule } from "@zxing/ngx-scanner";
 
 @NgModule({
   declarations: [
@@ -75,6 +77,7 @@ import { AuthInterceptor } from "interceptors/auth-interceptor";
     HttpClientModule,
     QRCodeModule,
     NgQrScannerModule,
+    ZXingScannerModule,
 
     // primeng
     InputTextModule,
@@ -115,6 +118,7 @@ import { AuthInterceptor } from "interceptors/auth-interceptor";
     MatSlideToggleModule,
     // own modules
     StudentModule,
+    SecurityModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

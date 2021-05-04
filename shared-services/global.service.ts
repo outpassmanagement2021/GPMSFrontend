@@ -38,7 +38,10 @@ export class GlobalService {
     };
     //  try {
     let result = await this.http
-      .post<{ message: string; signedToken: string }>(api, login)
+      .post<{ message: string; designation: string; signedToken: string }>(
+        api,
+        login
+      )
       .toPromise();
     console.log(result);
     this.token = result.signedToken;
@@ -49,7 +52,14 @@ export class GlobalService {
     // 2. Notify our App
     this.loggedInSubject.next(true);
 
-    //  }
+    // 3. Appropriate routing
+    if (result.designation == "student") {
+      this.router.navigateByUrl("v1/student/dashboard");
+    } else if (result.designation == "employee") {
+      this.router.navigateByUrl("v1/employee/dashboard");
+    } else if (result.designation == "security") {
+      this.router.navigateByUrl("v1/security/dashboard");
+    }
   }
 
   saveToken(token: string) {
@@ -70,5 +80,22 @@ export class GlobalService {
   changePassword(idObject) {
     let api = this.apiBaseUrl + `auth/changepassword`;
     return this.http.post<{ message: string }>(api, idObject);
+  }
+
+  getUserFile(filename: string) {
+    let api = this.apiBaseUrl + `file/userfile`;
+    return this.http.post(
+      api,
+      { filename: filename },
+      { responseType: "blob" }
+    );
+  }
+  getUserImage(filename: string) {
+    let api = this.apiBaseUrl + `file/userimage`;
+    return this.http.post(
+      api,
+      { filename: filename },
+      { responseType: "blob" }
+    );
   }
 }

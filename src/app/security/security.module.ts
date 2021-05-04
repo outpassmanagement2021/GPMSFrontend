@@ -1,18 +1,9 @@
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
-
-//our components
-import { StudentRoutingModule } from "./student-routing.module";
-import { PasswordchangeComponent } from "./passwordchange/passwordchange.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { HomeComponent } from "./home/home.component";
-import { NavComponent } from "./nav/nav.component";
-import { ProfileComponent } from "./profile/profile.component";
-import { RequestoutpassComponent } from "./requestoutpass/requestoutpass.component";
-import { ViewoutpassesComponent } from "./viewoutpasses/viewoutpasses.component";
-import { AuthInterceptor } from "interceptors/auth-interceptor";
+import { SecurityRoutingModule } from "./security-routing.module";
 
 //angular material imports
 import { MatButtonModule } from "@angular/material/button";
@@ -47,23 +38,28 @@ import { MessagesModule } from "primeng/messages";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
 
+//our own
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { NavComponent } from "./nav/nav.component";
+import { PasswordchangeComponent } from "./passwordchange/passwordchange.component";
+import { ZXingScannerModule } from "@zxing/ngx-scanner";
+import { ScannerComponent } from "./scanner/scanner.component";
+
 @NgModule({
   declarations: [
     DashboardComponent,
-    HomeComponent,
     NavComponent,
-    ProfileComponent,
-    RequestoutpassComponent,
-    ViewoutpassesComponent,
     PasswordchangeComponent,
+    ScannerComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
     CommonModule,
-    StudentRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-
-    // primeng
+    SecurityRoutingModule, // primeng
+    ZXingScannerModule,
     InputTextModule,
     DropdownModule,
     TableModule,
@@ -95,8 +91,5 @@ import { ToastModule } from "primeng/toast";
     MatMenuModule,
     MatSlideToggleModule,
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
 })
-export class StudentModule {}
+export class SecurityModule {}
