@@ -59,6 +59,10 @@ export class GlobalService {
       this.router.navigateByUrl("v1/employee/dashboard");
     } else if (result.designation == "security") {
       this.router.navigateByUrl("v1/security/dashboard");
+    } else if (result.designation == "hod") {
+      this.router.navigateByUrl("v1/hod/dashboard");
+    } else if (result.designation == "admin") {
+      this.router.navigateByUrl("v1/admin/dashboard");
     }
   }
 
@@ -97,5 +101,52 @@ export class GlobalService {
       { filename: filename },
       { responseType: "blob" }
     );
+  }
+
+  async getUserBasedOnToken() {
+    try {
+      // 1. Check if token is there , if not there do log out process and redirect
+      let token = localStorage.getItem("GPMSTOKEN");
+      if (!token) {
+        this.logout();
+      } else {
+        // else make http call
+        let api = this.apiBaseUrl + `auth/getuserbasedontoken/${token}`;
+        let result = await this.http
+          .get<{ message: string; userObj: any }>(api)
+          .toPromise();
+        return result.userObj;
+      }
+    } catch (err) {
+      this.removeToken();
+      this.notifyLogout();
+      //send error messae via notification
+      this.notificationService.danger(err.error.message);
+      //  Redirect to the Login Page
+      this.router.navigateByUrl("v1/login");
+    }
+  }
+
+  logout() {
+    this.removeToken();
+
+    this.notifyLogout();
+
+    //send some small messae via notification
+    this.notificationService.success("Logout Successful!");
+
+    //  Redirect to the Login Page
+    this.router.navigateByUrl("v1/login");
+  }
+
+  removeToken() {
+    //  Remove the token from Local storage.
+    localStorage.removeItem("GPMSTOKEN");
+  }
+
+  notifyLogout() {
+    //  Inform the APP that user has logged Out.
+    this.isLoggedIn = false;
+    this.loggedInSubject.next(false);
   }
 }

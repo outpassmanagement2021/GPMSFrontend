@@ -37,6 +37,7 @@ import { MessageModule } from "primeng/message";
 import { MessagesModule } from "primeng/messages";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
+import { ChartModule } from "primeng/chart";
 
 //our own
 import { DashboardComponent } from "./dashboard/dashboard.component";
@@ -44,6 +45,8 @@ import { NavComponent } from "./nav/nav.component";
 import { PasswordchangeComponent } from "./passwordchange/passwordchange.component";
 import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import { ScannerComponent } from "./scanner/scanner.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "interceptors/auth-interceptor";
 
 @NgModule({
   declarations: [
@@ -69,6 +72,7 @@ import { ScannerComponent } from "./scanner/scanner.component";
     MessagesModule,
     MessageModule,
     FileUploadModule,
+    ChartModule,
     //material
     MatButtonModule,
     MatGridListModule,
@@ -90,6 +94,9 @@ import { ScannerComponent } from "./scanner/scanner.component";
     MatListModule,
     MatMenuModule,
     MatSlideToggleModule,
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
 })
 export class SecurityModule {}

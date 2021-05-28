@@ -2,6 +2,7 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
+import { GlobalService } from "shared-services/global.service";
 
 @Component({
   selector: "app-nav",
@@ -9,7 +10,10 @@ import { map, shareReplay } from "rxjs/operators";
   styleUrls: ["./nav.component.scss"],
 })
 export class NavComponent implements OnInit {
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private globalservice: GlobalService
+  ) {}
 
   ngOnInit(): void {}
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -18,4 +22,8 @@ export class NavComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
+
+  logOut() {
+    this.globalservice.logout();
+  }
 }

@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -46,6 +48,7 @@ import { MessageModule } from "primeng/message";
 import { MessagesModule } from "primeng/messages";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
+import { ChartModule } from "primeng/chart";
 
 @NgModule({
   declarations: [
@@ -62,6 +65,8 @@ import { ToastModule } from "primeng/toast";
     StudentRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
 
     // primeng
     InputTextModule,
@@ -73,6 +78,7 @@ import { ToastModule } from "primeng/toast";
     MessagesModule,
     MessageModule,
     FileUploadModule,
+    ChartModule,
     //material
     MatButtonModule,
     MatGridListModule,

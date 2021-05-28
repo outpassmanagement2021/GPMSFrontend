@@ -1,6 +1,9 @@
 // own modules
 import { StudentModule } from "./student/student.module";
 import { SecurityModule } from "./security/security.module";
+import { EmployeeModule } from "./employee/employee.module";
+import { HodModule } from "./hod/hod.module";
+import { AdminModule } from "./admin/admin.module";
 
 // angular
 import { BrowserModule } from "@angular/platform-browser";
@@ -30,6 +33,7 @@ import { ToastModule } from "primeng/toast";
 import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
 import { FileUploadModule } from "primeng/fileupload";
+import { ChartModule } from "primeng/chart";
 
 // Material
 import { MatCardModule } from "@angular/material/card";
@@ -89,6 +93,7 @@ import { ZXingScannerModule } from "@zxing/ngx-scanner";
     MessagesModule,
     MessageModule,
     FileUploadModule,
+    ChartModule,
     // material
     MatCardModule,
     MatInputModule,
@@ -119,6 +124,9 @@ import { ZXingScannerModule } from "@zxing/ngx-scanner";
     // own modules
     StudentModule,
     SecurityModule,
+    EmployeeModule,
+    HodModule,
+    AdminModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

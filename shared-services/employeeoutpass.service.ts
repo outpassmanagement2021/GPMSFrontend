@@ -21,6 +21,40 @@ export class EmployeeOutpassService {
     return this.http.post<{ message: string }>(api, outpassObject);
   }
 
+  getSingleEmployeeOutPass(reqId) {
+    let api = this.apiBaseUrl + `${reqId}`;
+    return this.http.get<{ message: string; employeeOutPass: any }>(api);
+  }
+
+  getEmployeeAllOutPasses(EmployeeId) {
+    let api = this.apiBaseUrl + "getall/" + `${EmployeeId}`;
+    return this.http.get<{ message: string; allEmployeeOutPasses: any }>(api);
+  }
+
+  updateEmployeeOutPass(reqId, body) {
+    /*
+    this is by Employee,hod
+
+    Employee - update outpass Details - body contains new details to be updated
+    hod- accept/reject the outpass - body contains {status : accepted/rejected}
+
+    */
+    let api =
+      environment.apiBaseUrl + "outpass/updateemployeeoutpass/" + `${reqId}`;
+    return this.http.patch<{ message: string }>(api, body);
+  }
+
+  cancelSingleEmployeeOutPass(reqId: string) {
+    let api =
+      environment.apiBaseUrl + "outpass/cancelemployeeoutpass/" + `${reqId}`;
+    return this.http.patch<{ message: string }>(api, {});
+  }
+
+  deleteSingleEmployeeOutPass(reqId) {
+    let api = this.apiBaseUrl + `${reqId}`;
+    return this.http.delete<{ message: string }>(api);
+  }
+
   authenticateEmployeeOutpassBySecurity(reqId) {
     return this.http.patch<{ message: string; employeeObj: any }>(
       environment.apiBaseUrl + "outpass/updateemployeeoutpass/" + `${reqId}`,

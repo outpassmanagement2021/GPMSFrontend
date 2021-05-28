@@ -4,6 +4,8 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
+import { StudentOutpassService } from "shared-services/studentoutpass.service";
+import { GlobalService } from "shared-services/global.service";
 
 export interface data {
   id: number;
@@ -42,18 +44,17 @@ const REQUEST_DATA: data[] = [
   styleUrls: ["./viewoutpasses.component.scss"],
 })
 export class ViewoutpassesComponent implements OnInit {
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private studentoutpassservice: StudentOutpassService,
+    private globalservice: GlobalService
+  ) {}
 
   displayedColumns: string[] = ["no", "date", "reason", "status"];
   dataSource = new MatTableDataSource(REQUEST_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  ngOnInit() {
-    setTimeout(() => (this.dataSource.sort = this.sort));
-    setTimeout(() => (this.dataSource.paginator = this.paginator));
-  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -65,5 +66,20 @@ export class ViewoutpassesComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "80%";
     this.dialog.open(RequestoutpassComponent, dialogConfig);
+  }
+
+  async ngOnInit() {
+    setTimeout(() => (this.dataSource.sort = this.sort));
+    setTimeout(() => (this.dataSource.paginator = this.paginator));
+    //avaneesh
+    try {
+      let studentObj = await this.globalservice.getUserBasedOnToken();
+      let studentOutPasses = (
+        await this.studentoutpassservice
+          .getStudentAllOutPasses(studentObj._id)
+          .toPromise()
+      ).allStudentOutPasses;
+      console.log("outpassess :", studentOutPasses);
+    } catch (err) {}
   }
 }

@@ -1,3 +1,4 @@
+<p-toast position="top-center" key="toastElement"></p-toast>
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="240px">
     <mat-grid-tile
@@ -89,6 +90,13 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div *ngIf="card.rank == 5">
+            <p-chart
+              type="pie"
+              [data]="piedata"
+              style="position: relative; height: auto"
+            ></p-chart>
           </div>
           <div *ngIf="card.rank == 1" class="text-center">
             <button mat-raised-button (click)="morebtnfun()" class="more-btn">

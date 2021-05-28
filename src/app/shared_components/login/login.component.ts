@@ -2,6 +2,7 @@ import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { GlobalService } from "shared-services/global.service";
+import { NotificationService } from "shared-services/notification.service";
 
 @Component({
   selector: "app-login",
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private globalservice: GlobalService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private notificationService: NotificationService
   ) {}
   hide = true;
   role;
@@ -24,13 +26,7 @@ export class LoginComponent implements OnInit {
     try {
       this.isLoading = true;
       await this.globalservice.userLogin(userObj);
-      this.messageService.add({
-        key: "toastElement",
-        severity: "success",
-        summary: "Success",
-        detail: "Succesfully logged in",
-        sticky: false,
-      });
+      this.notificationService.success("Login Successful!");
 
       this.isLoading = false;
       // tslint:disable-next-line: max-line-length
@@ -42,7 +38,7 @@ export class LoginComponent implements OnInit {
         severity: "error",
         summary: "AUTHENTICATION ERROR",
         detail: error.error.message,
-        sticky: true,
+        sticky: false,
       });
 
       //routing

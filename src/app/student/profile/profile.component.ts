@@ -1,16 +1,37 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MessageService } from "primeng/api";
+import { GlobalService } from "shared-services/global.service";
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
+  providers: [MessageService],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private messageService: MessageService,
+    private globalservice: GlobalService
+  ) {}
+  presentStudent: any;
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    try {
+      this.presentStudent = await this.globalservice.getUserBasedOnToken();
+    } catch (error) {
+      console.log(error);
+      this.messageService.add({
+        key: "toastElement",
+        severity: "error",
+        summary: "ERROR",
+        detail: error.error.message,
+        sticky: false,
+      });
+    }
+  }
 
   defaultValues = [
     { email: "akhilcruise35@gmail.com" },
