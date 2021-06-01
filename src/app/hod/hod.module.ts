@@ -47,6 +47,15 @@ import { MystudentsComponent } from "./mystudents/mystudents.component";
 import { MyeemployeesComponent } from "./myeemployees/myeemployees.component";
 import { ViewemployeeoutpassesComponent } from "./viewemployeeoutpasses/viewemployeeoutpasses.component";
 import { ViewstudentoutpassesComponent } from "./viewstudentoutpasses/viewstudentoutpasses.component";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavComponent } from './nav/nav.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EditprofileComponent } from './editprofile/editprofile.component';
+import { StudentoutpassdialogboxComponent } from './studentoutpassdialogbox/studentoutpassdialogbox.component';
+import { EmployeeoutpassdialogboxComponent } from './employeeoutpassdialogbox/employeeoutpassdialogbox.component';
+import { StudentprofiledialogComponent } from './studentprofiledialog/studentprofiledialog.component';
+import { EmployeeprofiledialogComponent } from './employeeprofiledialog/employeeprofiledialog.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +64,15 @@ import { ViewstudentoutpassesComponent } from "./viewstudentoutpasses/viewstuden
     MyeemployeesComponent,
     ViewemployeeoutpassesComponent,
     ViewstudentoutpassesComponent,
+    DashboardComponent,
+    NavComponent,
+    HomeComponent,
+    ProfileComponent,
+    EditprofileComponent,
+    StudentoutpassdialogboxComponent,
+    EmployeeoutpassdialogboxComponent,
+    StudentprofiledialogComponent,
+    EmployeeprofiledialogComponent,
   ],
   imports: [
     CommonModule,

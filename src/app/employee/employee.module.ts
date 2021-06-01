@@ -1,3 +1,4 @@
+import { QRCodeModule } from "angularx-qrcode";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -45,12 +46,34 @@ import { PasswordchangeComponent } from "./passwordchange/passwordchange.compone
 import { MystudentsComponent } from "./mystudents/mystudents.component";
 import { ViewstudentoutpassesComponent } from "./viewstudentoutpasses/viewstudentoutpasses.component";
 import { EmployeeRoutingModule } from "./employee-routing.module";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { NavComponent } from "./nav/nav.component";
+import { HomeComponent } from "./home/home.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { EditprofileComponent } from "./editprofile/editprofile.component";
+import { RequestoutpassComponent } from "./requestoutpass/requestoutpass.component";
+import { ViewoutpassesComponent } from "./viewoutpasses/viewoutpasses.component";
+import { OutpassdialogboxComponent } from "./outpassdialogbox/outpassdialogbox.component";
+import { QrcodedialogboxComponent } from "./qrcodedialogbox/qrcodedialogbox.component";
+import { StudentoutpassdialogboxComponent } from './studentoutpassdialogbox/studentoutpassdialogbox.component';
+import { StudentprofiledialogComponent } from './studentprofiledialog/studentprofiledialog.component';
 
 @NgModule({
   declarations: [
     PasswordchangeComponent,
     MystudentsComponent,
     ViewstudentoutpassesComponent,
+    DashboardComponent,
+    NavComponent,
+    HomeComponent,
+    ProfileComponent,
+    EditprofileComponent,
+    RequestoutpassComponent,
+    ViewoutpassesComponent,
+    OutpassdialogboxComponent,
+    QrcodedialogboxComponent,
+    StudentoutpassdialogboxComponent,
+    StudentprofiledialogComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +82,7 @@ import { EmployeeRoutingModule } from "./employee-routing.module";
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    QRCodeModule,
 
     // primeng
     InputTextModule,

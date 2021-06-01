@@ -1,3 +1,4 @@
+import { OutpassdialogboxComponent } from "./../outpassdialogbox/outpassdialogbox.component";
 import { RequestoutpassComponent } from "./../requestoutpass/requestoutpass.component";
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
@@ -6,52 +7,56 @@ import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { StudentOutpassService } from "shared-services/studentoutpass.service";
 import { GlobalService } from "shared-services/global.service";
+import { Router } from "@angular/router";
+import { MatDialogService } from "shared-services/mat-dialog.service";
+import { MessageService } from "primeng/api";
 
-export interface data {
-  id: number;
-  date: Date;
+interface data {
+  outgoingDate: Date;
+  outgoingTime: string;
+  incomingTime: string;
   reason: string;
+  description: string;
+  createdDate: Date;
+  incomingDate: Date;
   status: string;
+  percentageOfEmergency: number;
+  statusUpdatedBy: string;
+  belongsToStudent: string;
+  statusUpdatedAt: Date;
+  detailsUpdatedAt: Date;
+  isAuthenticated: boolean;
+  authenticatedBy: string;
+  isAuthenticatedAt: Date;
+  otp: number;
+  fileName: string;
 }
-
-const REQUEST_DATA: data[] = [
-  { id: 1, date: new Date("2020-08-01"), reason: "reason1", status: "pending" },
-  { id: 2, date: new Date("2020-08-01"), reason: "reason2", status: "pending" },
-  { id: 3, date: new Date("2020-08-01"), reason: "reason3", status: "pending" },
-  { id: 4, date: new Date("2020-08-01"), reason: "reason4", status: "pending" },
-  { id: 5, date: new Date("2020-08-01"), reason: "reason5", status: "pending" },
-  { id: 6, date: new Date("2020-08-01"), reason: "reason6", status: "pending" },
-  { id: 7, date: new Date("2020-08-01"), reason: "reason7", status: "pending" },
-  { id: 8, date: new Date("2020-08-01"), reason: "reason8", status: "pending" },
-  { id: 9, date: new Date("2020-08-01"), reason: "reason9", status: "pending" },
-  {
-    id: 10,
-    date: new Date("2020-08-01"),
-    reason: "reason10",
-    status: "pending",
-  },
-  {
-    id: 11,
-    date: new Date("2020-08-01"),
-    reason: "reason11",
-    status: "pending",
-  },
-];
 
 @Component({
   selector: "app-viewoutpasses",
   templateUrl: "./viewoutpasses.component.html",
   styleUrls: ["./viewoutpasses.component.scss"],
+  providers: [MessageService],
 })
 export class ViewoutpassesComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private studentoutpassservice: StudentOutpassService,
-    private globalservice: GlobalService
+    private globalservice: GlobalService,
+    private router: Router,
+    private matdialogservice: MatDialogService,
+    private messageService: MessageService
   ) {}
 
-  displayedColumns: string[] = ["no", "date", "reason", "status"];
-  dataSource = new MatTableDataSource(REQUEST_DATA);
+  displayedColumns: string[] = [
+    "createdDate",
+    "outgoingDate",
+    "reason",
+    "status",
+    "qrbutton",
+  ];
+  REQUEST_DATA: data[] = [];
+  dataSource;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -60,17 +65,23 @@ export class ViewoutpassesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "80%";
-    this.dialog.open(RequestoutpassComponent, dialogConfig);
+  requestOutPass() {
+    this.router.navigateByUrl("v1/student/dashboard/requestoutpass");
+  }
+
+  async viewParticularOutPass(outpass_id) {
+    console.log("outpass_id :", outpass_id);
+
+    let studentOutPass = (
+      await this.studentoutpassservice
+        .getSingleStudentOutPass(outpass_id)
+        .toPromise()
+    ).studentOutPass;
+    console.log("student_outpass :", studentOutPass);
+    this.dialog.open(OutpassdialogboxComponent, { data: studentOutPass });
   }
 
   async ngOnInit() {
-    setTimeout(() => (this.dataSource.sort = this.sort));
-    setTimeout(() => (this.dataSource.paginator = this.paginator));
     //avaneesh
     try {
       let studentObj = await this.globalservice.getUserBasedOnToken();
@@ -79,7 +90,38 @@ export class ViewoutpassesComponent implements OnInit {
           .getStudentAllOutPasses(studentObj._id)
           .toPromise()
       ).allStudentOutPasses;
+
+      this.REQUEST_DATA = studentOutPasses;
+      this.dataSource = new MatTableDataSource(this.REQUEST_DATA);
+
+      setTimeout(() => (this.dataSource.sort = this.sort));
+      setTimeout(() => (this.dataSource.paginator = this.paginator));
+
       console.log("outpassess :", studentOutPasses);
-    } catch (err) {}
+    } catch (error) {
+      console.log(error);
+      this.messageService.add({
+        key: "toastElement",
+        severity: "error",
+        summary: "ERROR",
+        detail: error.error.message,
+        sticky: true,
+      });
+    }
+  }
+
+  openQRCode(outpass_id) {
+    console.log("QR code");
+
+    let msg = outpass_id + ":student";
+
+    this.matdialogservice.openQRCodeDialog(msg);
+  }
+
+  refreshTable() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl("/", { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

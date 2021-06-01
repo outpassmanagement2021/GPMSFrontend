@@ -31,6 +31,13 @@ export class EmployeeOutpassService {
     return this.http.get<{ message: string; allEmployeeOutPasses: any }>(api);
   }
 
+  getAllEmployeesAllOutPasses() {
+    let api = this.apiBaseUrl + "getall/";
+    return this.http.get<{ message: string; allEmployeesAllOutPasses: any }>(
+      api
+    );
+  }
+
   updateEmployeeOutPass(reqId, body) {
     /*
     this is by Employee,hod

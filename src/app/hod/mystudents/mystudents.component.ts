@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
 import { GlobalService } from "shared-services/global.service";
 import { StudentService } from "shared-services/student.service";
@@ -15,7 +16,8 @@ export class MystudentsComponent implements OnInit {
   constructor(
     private globalservice: GlobalService,
     private studentservice: StudentService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
   async ngOnInit() {
     try {
@@ -33,5 +35,9 @@ export class MystudentsComponent implements OnInit {
         sticky: false,
       });
     }
+  }
+
+  onRowSelect(event) {
+    this.router.navigateByUrl(`v1/hod/dashboard/student/${event.data._id}`);
   }
 }

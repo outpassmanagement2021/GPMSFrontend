@@ -20,40 +20,30 @@ export class HomeComponent implements OnInit {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: "View recent out-passes", cols: 2, rows: 1, rank: 1 },
           {
             title: "My Details",
             cols: 2,
             rows: 1,
             rank: 2,
-            content: "Details of students",
-            name: "Akhil Dharavath",
-            department: "CSE",
-            email: "akhilcruise35@gmail.com",
           },
 
           { title: "Mentor Details", cols: 2, rows: 1, rank: 3 },
           { title: "HOD Details", cols: 2, rows: 1, rank: 4 },
-          { title: "Document", cols: 2, rows: 1, rank: 5 },
+          { title: "Your Outpasses Status", cols: 2, rows: 1, rank: 5 },
         ];
       }
 
       return [
-        { title: "View recent out-passes", cols: 2, rows: 1, rank: 1 },
         {
           title: "My Details",
           cols: 1,
           rows: 1,
           rank: 2,
-          content: "Details of students",
-          name: "Akhil Dharavath",
-          department: "CSE",
-          email: "akhilcruise35@gmail.com",
         },
 
         { title: "Mentor Details", cols: 1, rows: 1, rank: 3 },
         { title: "HOD Details", cols: 1, rows: 1, rank: 4 },
-        { title: "Document", cols: 1, rows: 1, rank: 5 },
+        { title: "Your Outpasses Status", cols: 1, rows: 1, rank: 5 },
       ];
     })
   );
@@ -63,23 +53,12 @@ export class HomeComponent implements OnInit {
   presentStudentMentorDetails: any;
   presentStudentHodDetails: any;
 
-  piedata = {
-    labels: ["Pending", "Accepted", "Cancelled", "Unread"],
-    datasets: [
-      {
-        data: [3, 5, 10],
-        backgroundColor: ["#FF6384", "#32CD32", "#FFCE56", "#36A2EB"],
-        hoverBackgroundColor: ["#FF6384", "#32CD32", "#FFCE56", "#36A2EB"],
-      },
-    ],
-  };
-
+  piedata;
   constructor(
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private globalservice: GlobalService,
     private studentoutpassservice: StudentOutpassService,
-    private notificationService: NotificationService,
     private messageservice: MessageService,
     private employeeservice: EmployeeService,
     private hodservice: HodService
@@ -145,6 +124,8 @@ export class HomeComponent implements OnInit {
     // console.log("pn", pending);
     // console.log("ur", unread);
     // console.log("canc", cancelled);
+    // console.log("rej", rejected);
+    // console.log("del", deleted);
 
     this.piedata = {
       labels: [
@@ -157,15 +138,25 @@ export class HomeComponent implements OnInit {
       ],
       datasets: [
         {
-          data: [pending, accepted, cancelled, unread],
-          backgroundColor: ["#FF6384", "#32CD32", "#FFCE56", "#36A2EB"],
-          hoverBackgroundColor: ["#FF6384", "#32CD32", "#FFCE56", "#36A2EB"],
+          data: [pending, accepted, cancelled, unread, rejected, deleted],
+          backgroundColor: [
+            "#FF6384",
+            "#32CD32",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFA500",
+            "#000000",
+          ],
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#32CD32",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFA500",
+            "#000000",
+          ],
         },
       ],
     };
-  }
-
-  morebtnfun() {
-    this.router.navigate(["/dashboard/viewoutpass"]);
   }
 }

@@ -29,6 +29,12 @@ export class MystudentsComponent implements OnInit {
     private studentservice: StudentService
   ) {}
 
+  onRowSelect(event) {
+    console.log(event.data._id);
+    this.router.navigateByUrl(`v1/employee/dashboard/student/${event.data._id}`);
+  }
+
+
   async ngOnInit() {
     try {
       this.presentEmployee = await this.globalservice.getUserBasedOnToken();

@@ -47,6 +47,8 @@ import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import { ScannerComponent } from "./scanner/scanner.component";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "interceptors/auth-interceptor";
+import { ProfileComponent } from './profile/profile.component';
+import { EditprofileComponent } from './editprofile/editprofile.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { AuthInterceptor } from "interceptors/auth-interceptor";
     NavComponent,
     PasswordchangeComponent,
     ScannerComponent,
+    ProfileComponent,
+    EditprofileComponent,
   ],
   imports: [
     BrowserAnimationsModule,

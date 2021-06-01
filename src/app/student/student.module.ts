@@ -15,6 +15,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { RequestoutpassComponent } from "./requestoutpass/requestoutpass.component";
 import { ViewoutpassesComponent } from "./viewoutpasses/viewoutpasses.component";
 import { AuthInterceptor } from "interceptors/auth-interceptor";
+import { OutpassdialogboxComponent } from "./outpassdialogbox/outpassdialogbox.component";
 
 //angular material imports
 import { MatButtonModule } from "@angular/material/button";
@@ -49,6 +50,9 @@ import { MessagesModule } from "primeng/messages";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
 import { ChartModule } from "primeng/chart";
+import { QrcodedialogboxComponent } from "./qrcodedialogbox/qrcodedialogbox.component";
+import { QRCodeModule } from "angularx-qrcode";
+import { EditprofileComponent } from './editprofile/editprofile.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +63,9 @@ import { ChartModule } from "primeng/chart";
     RequestoutpassComponent,
     ViewoutpassesComponent,
     PasswordchangeComponent,
+    OutpassdialogboxComponent,
+    QrcodedialogboxComponent,
+    EditprofileComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +74,7 @@ import { ChartModule } from "primeng/chart";
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    QRCodeModule,
 
     // primeng
     InputTextModule,

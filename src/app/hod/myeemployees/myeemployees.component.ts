@@ -38,4 +38,8 @@ export class MyeemployeesComponent implements OnInit {
       });
     }
   }
+
+  onRowSelect(event) {
+    this.router.navigateByUrl(`v1/hod/dashboard/employee/${event.data._id}`);
+  }
 }

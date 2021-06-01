@@ -1,9 +1,9 @@
 import { StudentOutpassService } from "../../../../shared-services/studentoutpass.service";
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 //import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-requestoutpass",
@@ -13,9 +13,9 @@ import { MessageService } from "primeng/api";
 })
 export class RequestoutpassComponent implements OnInit {
   constructor(
-    private http: HttpClient,
     private outpassservice: StudentOutpassService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -103,7 +103,7 @@ export class RequestoutpassComponent implements OnInit {
           .createNewStudentOutPass(formData)
           .toPromise();
 
-        //this.form.reset();
+        this.form.reset();
         this.alert = true;
 
         this.messageService.add({
@@ -113,6 +113,10 @@ export class RequestoutpassComponent implements OnInit {
           detail: result.message,
           sticky: false,
         });
+
+        await this.sleep(1500);
+        //route to view outpass
+        this.router.navigateByUrl("v1/student/dashboard/viewoutpass");
       } catch (error) {
         console.log(error);
         this.messageService.add({
@@ -134,5 +138,9 @@ export class RequestoutpassComponent implements OnInit {
   //file upload
   myUploader(obj) {
     this.selectedFile = obj.files[0];
+  }
+
+  sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

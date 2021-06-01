@@ -7,10 +7,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <div>
-      <mat-toolbar>Menu</mat-toolbar>
-    </div>
-
+    <mat-toolbar color="accent"></mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="home"><mat-icon>home</mat-icon>Dashboard</a>
       <a mat-list-item routerLink="requestoutpass"
@@ -31,7 +28,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="accent">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -41,7 +38,17 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Gatepass System</span>
+      <span>GATIZEE - VNR VJIET</span>
+
+      <span class="spacer"></span>
+
+      <ul>
+        <li>
+          <a mat-button (click)="onDashBoardClick()"
+            ><mat-icon>person</mat-icon>{{ presentStudent?.name }}</a
+          >
+        </li>
+      </ul>
     </mat-toolbar>
     <!-- Add Content Here -->
 

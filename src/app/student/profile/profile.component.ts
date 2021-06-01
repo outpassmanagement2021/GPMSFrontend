@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import { GlobalService } from "shared-services/global.service";
+import { EmployeeService } from "shared-services/employee.service";
+import { HodService } from "shared-services/hod.service";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-profile",
@@ -14,13 +16,43 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private messageService: MessageService,
-    private globalservice: GlobalService
+    private globalservice: GlobalService,
+    private employeeservice: EmployeeService,
+    private hodservice: HodService,
+    private sanitizer: DomSanitizer
   ) {}
   presentStudent: any;
+  presentStudentImageUrl;
+  presentStudentMentor: any;
+  presentStudentHod: any;
 
   async ngOnInit() {
     try {
       this.presentStudent = await this.globalservice.getUserBasedOnToken();
+
+      this.globalservice
+        .getUserImage(this.presentStudent.imageFileName)
+        .subscribe((file) => {
+          console.log("image ", file);
+
+          let unsafeImageUrl = URL.createObjectURL(file);
+          this.presentStudentImageUrl =
+            this.sanitizer.bypassSecurityTrustUrl(unsafeImageUrl);
+        });
+      //mentor
+      this.presentStudentMentor = (
+        await this.employeeservice
+          .getSingleEmployee(this.presentStudent.belongsToEmployeeMongo)
+          .toPromise()
+      ).employeeObj;
+      console.log("mentor :", this.presentStudentMentor);
+      //hod
+      this.presentStudentHod = (
+        await this.hodservice
+          .getSingleHod(this.presentStudent.belongsToHodMongo)
+          .toPromise()
+      ).hodObj;
+      console.log("hod :", this.presentStudentHod);
     } catch (error) {
       console.log(error);
       this.messageService.add({
@@ -33,48 +65,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  defaultValues = [
-    { email: "akhilcruise35@gmail.com" },
-    { branch: "cse" },
-    { address: "35-379/27, karimnagar" },
-    { state: "telangana" },
-  ];
-
-  edit1: boolean = false;
-  edit2: boolean = true;
-
-  value: string = "edit profile";
-
   editProfile() {
-    if (this.edit2 == true) {
-      this.value = "back";
-      this.edit1 = true;
-      this.edit2 = false;
-      //this.edit1 = false;
-    } else {
-      this.edit1 = false;
-      this.edit2 = true;
-      this.value = "edit profile";
-      window.location.reload();
-    }
-  }
-
-  //form validation
-  form = new FormGroup({
-    email: new FormControl(this.defaultValues[0].email, [Validators.required]),
-    branch: new FormControl(this.defaultValues[1].branch, Validators.required),
-    address: new FormControl(
-      this.defaultValues[2].address,
-      Validators.required
-    ),
-    state: new FormControl(this.defaultValues[3].state, Validators.required),
-  });
-
-  backToHome() {
-    this.router.navigate(["/dashboard"]);
-  }
-
-  onSubmit() {
-    console.log(this.form.value);
+    this.router.navigateByUrl("v1/student/dashboard/editprofile");
   }
 }

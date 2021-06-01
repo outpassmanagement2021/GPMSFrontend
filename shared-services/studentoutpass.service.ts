@@ -31,6 +31,13 @@ export class StudentOutpassService {
     return this.http.get<{ message: string; allStudentOutPasses: any }>(api);
   }
 
+  getAllStudentsAllOutPasses() {
+    let api = this.apiBaseUrl + "getall/";
+    return this.http.get<{ message: string; allStudentsAllOutPasses: any }>(
+      api
+    );
+  }
+
   updateStudentOutPass(reqId, body) {
     /*
     this is by student,hod,employee

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { HomeComponent } from "./home/home.component";
 import { PasswordchangeComponent } from "./passwordchange/passwordchange.component";
+import { EditprofileComponent } from "./editprofile/editprofile.component";
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
       { path: "changepassword", component: PasswordchangeComponent },
       { path: "viewoutpass", component: ViewoutpassesComponent },
       { path: "profile", component: ProfileComponent },
-      // {path :'mentordetails' , component: MentordetailsComponent}
+      { path: "editprofile", component: EditprofileComponent },
     ],
   },
 ];
